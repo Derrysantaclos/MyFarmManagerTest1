@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20sp">
+            <TextView
+                android:id="@+id/rabbitFormText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rabbit_form_infor"
+                android:textAlignment="center"
+                android:textStyle="italic|bold"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                />
+            <EditText
+                android:id="@+id/tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tag No."
+                android:layout_below="@+id/rabbitFormText"/>
+            <EditText
+                android:id="@+id/sex"
+                android:layout_below="@+id/tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="sex"
+                />
+
+            <!--androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/saveRabbitButton"
+                android:dropDownSelector="@android:drawable/ic_input_add"
+                android:hint="sex" /-->
+
+            <EditText
+                android:id="@+id/dateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sex"
+                android:hint="@string/date_of_birth"
+                android:inputType="date|text" />
+
+            <EditText
+                android:id="@+id/source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dateOfBirth"
+                android:hint="Source" />
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/breed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/breed"
+                android:layout_below="@id/colour"
+                android:inputType="text"
+                android:autofillHints="New Zealand White,Hyla,California,American Chinchilla,English Spotted,Dutch"
+                />
+            <EditText
+                android:id="@+id/colour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/source"
+                android:autofillHints="White,Blue,Marked White,Spotted"
+                android:hint="colour"
+                android:inputType="textAutoComplete" />
+            <Button
+                android:id="@+id/saveRabbitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Rabbit"
+                android:layout_below="@+id/breed"
+                />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
