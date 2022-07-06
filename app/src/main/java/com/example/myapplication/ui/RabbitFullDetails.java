@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
@@ -18,7 +20,9 @@ public class RabbitFullDetails extends AppCompatActivity {
     private TextView detailRabbitDateOfBirth;
     private TextView detailRabbitSex;
     private TextView detailRabbitSource;
+    private Button displayPregnancyRecords;
     private DbHandler dbHandler;
+    private Rabbit selectedRabbit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,15 @@ public class RabbitFullDetails extends AppCompatActivity {
         setVariablesAndViews();
 
         setItemsValues();
+        displayPregnancyRecords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pregnacyRecordsIntent =new Intent(RabbitFullDetails.this,PregnancyListPage.class);
+                pregnacyRecordsIntent.putExtra("doeTag",selectedRabbit.get_tag());
+                startActivity(pregnacyRecordsIntent);
+            }
+        });
+
 
     }
     private void setVariablesAndViews(){
@@ -37,6 +50,7 @@ public class RabbitFullDetails extends AppCompatActivity {
         detailRabbitSex=findViewById(R.id.detailRabbitSex);
         detailRabbitSource=findViewById(R.id.detailRabbitSource);
         detailRabbitTag=findViewById(R.id.detailRabbitTag);
+        displayPregnancyRecords=findViewById(R.id.displayPregnancyRecords);
         dbHandler =new DbHandler(this,null,null,1);
     }
     private void setItemsValues(){
@@ -44,7 +58,7 @@ public class RabbitFullDetails extends AppCompatActivity {
         Bundle extras= getIntent().getExtras();
         if(extras!=null) {
            int selectedRabbitId = extras.getInt("adapterPosition");
-        Rabbit selectedRabbit =dbHandler.rabbitArrayList().get(selectedRabbitId);
+       selectedRabbit =dbHandler.rabbitArrayList().get(selectedRabbitId);
         detailRabbitAge.setText(selectedRabbit.get_age());
             detailRabbitBreed.setText(selectedRabbit.get_breed());
             detailRabbitColour.setText(selectedRabbit.get_colour());
