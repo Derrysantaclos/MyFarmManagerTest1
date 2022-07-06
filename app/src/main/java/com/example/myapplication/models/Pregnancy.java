@@ -13,9 +13,9 @@ public class Pregnancy
     private int numberOfDays;
     private Boolean pregnancyConfirmation;
     private String message;
-    private LocalDate deliveryDate;
+    private String deliveryDate;
 
-    public Pregnancy(String doeTag, String buckTag, LocalDate crossedDate, Boolean pregnancyConfirmation, String message, LocalDate deliveryDate) {
+    public Pregnancy(String doeTag, String buckTag, LocalDate crossedDate, Boolean pregnancyConfirmation, String message, String deliveryDate) {
         this.doeTag = doeTag;
         this.buckTag = buckTag;
         this.crossedDate = crossedDate;
@@ -84,11 +84,11 @@ public class Pregnancy
         this.message = message;
     }
 
-    public LocalDate getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(LocalDate deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 }
