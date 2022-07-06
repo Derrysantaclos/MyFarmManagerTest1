@@ -23,6 +23,16 @@ public class Pregnancy
         this.message = message;
         this.deliveryDate = deliveryDate;
     }
+    public Pregnancy(int id,int numberOfDays,String doeTag, String buckTag, LocalDate crossedDate, Boolean pregnancyConfirmation, String message, String deliveryDate) {
+        this.id = id;
+        this.doeTag = doeTag;
+        this.buckTag = buckTag;
+        this.crossedDate = crossedDate;
+        this.pregnancyConfirmation = pregnancyConfirmation;
+        this.message = message;
+        this.deliveryDate = deliveryDate;
+        this.numberOfDays = numberOfDays;
+    }
 
     public int getId() {
         return id;

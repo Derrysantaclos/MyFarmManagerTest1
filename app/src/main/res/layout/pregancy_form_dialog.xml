@@ -18,18 +18,19 @@
             android:id="@+id/pregnancyDialogIntroductoryText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:padding="25dp"
             android:textAlignment="center"
             android:textStyle="bold|italic"
             android:text="Add/Edit pregnancy details for your Doe"
             />
-        <AutoCompleteTextView
+        <Spinner
             android:id="@+id/pregnancyDialogFormBuckTag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Buck Tag"
             android:layout_below="@id/pregnancyDialogIntroductoryText"
+
             />
         <EditText
             android:id="@+id/pregnancyDialogFormCrossDate"
@@ -39,19 +40,28 @@
             android:layout_below="@id/pregnancyDialogFormBuckTag"
             />
         <Spinner
-        android:id="@+id/pregnancyDialogFormConfirmationCrossDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:hint="Date of Mating (yyyy-mm-dd)"
-        android:layout_below="@id/pregnancyDialogFormCrossDate"
+            android:id="@+id/pregnancyDialogFormConfirmation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textAlignment="center"
+            android:hint="Date of Mating (yyyy-mm-dd)"
+            android:layout_below="@id/pregnancyDialogFormCrossDate"
+            android:entries="@array/booleanEntry"
         />
         <EditText
             android:id="@+id/pregnancyDialogFormDeliveryDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date of Mating (yyyy-mm-dd)"
-            android:layout_below="@id/pregnancyDialogFormConfirmationCrossDate"
+            android:hint="Delivery Date (yyyy-mm-dd)"
+            android:layout_below="@id/pregnancyDialogFormConfirmation"
+            />
+        <Button
+            android:id="@+id/savePregnancyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SAVE PREGNANCY"
+            android:layout_below="@id/pregnancyDialogFormDeliveryDate"
             />
 
     </RelativeLayout>

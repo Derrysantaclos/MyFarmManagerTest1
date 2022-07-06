@@ -17,4 +17,9 @@
         <item>Male </item>
         <item>Female </item>
     </string-array>
+    <string-array name="booleanEntry">
+        <item>False</item>
+        <item>True</item>
+
+    </string-array>
 </resources>

@@ -51,6 +51,7 @@ private DbHandler dbHandler;
 //TODO SHORTEN THIS CODE
 private final Validator validator= new Validator();
     private void setViewFields(){
+        //the views on the dialog form
         rabbitFormDialogView = ((Activity)context).getLayoutInflater().inflate(R.layout.rabbit_form_dialog,null);
         rabbitTag =rabbitFormDialogView.findViewById(R.id.tag);
         rabbitDateofBirth =rabbitFormDialogView.findViewById(R.id.dateOfBirth);
@@ -58,10 +59,15 @@ private final Validator validator= new Validator();
         rabbitSource =rabbitFormDialogView.findViewById(R.id.source);
         rabbitSex =rabbitFormDialogView.findViewById(R.id.sex);
         rabbitColour =rabbitFormDialogView.findViewById(R.id.colour);
+
+        //the dialog
         rabbitFormDialogBuilder =new AlertDialog.Builder(this.context);
         rabbitFormDialogBuilder.setView(rabbitFormDialogView);
         rabbitFormDialog =rabbitFormDialogBuilder.create();
+
+        //save
         rabbitSaveButton =rabbitFormDialogView.findViewById(R.id.saveRabbitButton);
+
         //BREED OPTIONS
         String[] breedOptions={"New Zealand White", "English Spot","Checkered Giant","Dutch","Hyla Max",
                                 "Hyla NG","California White", "American Chinchilla","Angoran White","Coloured Angoran"};
