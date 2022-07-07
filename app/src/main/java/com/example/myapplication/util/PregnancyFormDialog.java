@@ -3,6 +3,8 @@ package com.example.myapplication.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -13,8 +15,10 @@ import android.widget.Spinner;
 import com.example.myapplication.R;
 import com.example.myapplication.data.DbHandler;
 import com.example.myapplication.data.PregnancyDbHandler;
+import com.example.myapplication.data.PregnancyDbHandler2;
 import com.example.myapplication.models.Pregnancy;
 import com.example.myapplication.models.Rabbit;
+import com.example.myapplication.ui.RabbitListDisplayPage;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDate;
@@ -29,7 +33,7 @@ public class PregnancyFormDialog
     private EditText crossDate;
     private Spinner pregnancyConfirmation;
     private EditText deliveryDate;
-    private PregnancyDbHandler pregnancyDbHandler;
+    private PregnancyDbHandler2 pregnancyDbHandler;
     private Context context;
     private String doeTag;
     private View pregnancyDialogView;
@@ -38,7 +42,7 @@ public class PregnancyFormDialog
     private MyDateTimeFormatter myDateTimeFormatter=new MyDateTimeFormatter();
     private PregnancyFormValidator pregnancyFormValidator = new PregnancyFormValidator();
 
-    public PregnancyFormDialog(PregnancyDbHandler pregnancyDbHandler, Context context,String doeTag) {
+    public PregnancyFormDialog(PregnancyDbHandler2 pregnancyDbHandler, Context context, String doeTag) {
         this.pregnancyDbHandler = pregnancyDbHandler;
         this.context = context;
         this.doeTag=doeTag;
@@ -96,7 +100,6 @@ public class PregnancyFormDialog
             Snackbar.make(view, "Delivery Date not in right format. Leave as Nil if not yet delivered", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
         else if (pregnancyFormValidator.inputDateValidator(crossDate)){
-            crossDate.setText(LocalDate.now().toString());
             String newPregnancyBuckTag = buckTag.getSelectedItem().toString();
             Boolean newPregnancyConfirmation = pregnancyConfirmation.getSelectedItem().toString().equalsIgnoreCase("true");
             LocalDate newPregnancyCrossDate = myDateTimeFormatter.dateStringToLocalDate(crossDate.getText().toString());
@@ -109,7 +112,23 @@ public class PregnancyFormDialog
             Pregnancy newPregnancy = new Pregnancy(doeTag,newPregnancyBuckTag,newPregnancyCrossDate,
                     newPregnancyConfirmation,"",newPregnancyDeliveryDate);
 
-            pregnancyDbHandler.addModel(newPregnancy);
+            pregnancyDbHandler.addPregnancy(newPregnancy);
+            Snackbar.make(view, "SAVED SUCCESSFULLY", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    //refresh page
+                    pregnancyAlertDialog.dismiss();
+
+                    //TODO change back to d pregnancy det
+                    Intent refresh = new Intent(context, RabbitListDisplayPage.class);
+                    context.startActivity(refresh);
+
+                    ((Activity) context).finish();
+
+                }
+            }, 1200);
 
 
         }
