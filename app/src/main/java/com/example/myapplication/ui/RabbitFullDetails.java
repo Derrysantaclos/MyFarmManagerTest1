@@ -31,16 +31,23 @@ public class RabbitFullDetails extends AppCompatActivity {
         setVariablesAndViews();
 
         setItemsValues();
-        displayPregnancyRecords.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent pregnacyRecordsIntent =new Intent(RabbitFullDetails.this,PregnancyListPage.class);
-                pregnacyRecordsIntent.putExtra("doeTag",selectedRabbit.get_tag());
-                startActivity(pregnacyRecordsIntent);
-            }
-        });
+        if (selectedRabbit.get_sex().equalsIgnoreCase("male") | selectedRabbit.get_sex().equalsIgnoreCase("buck"))
+        {
+            displayPregnancyRecords.setVisibility(View.GONE);
+        } else
+            {
+            displayPregnancyRecords.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    Intent pregnacyRecordsIntent = new Intent(RabbitFullDetails.this, PregnancyListPage.class);
+                    pregnacyRecordsIntent.putExtra("doeTag", selectedRabbit.get_tag());
+                    startActivity(pregnacyRecordsIntent);
+                }
+            });
 
 
+        }
     }
     private void setVariablesAndViews(){
         detailRabbitAge =findViewById(R.id.detailRabbitAge);
