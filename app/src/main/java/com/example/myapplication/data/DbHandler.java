@@ -73,7 +73,7 @@ public class DbHandler extends SQLiteOpenHelper
             values.put(SEX_COLUMN, newRabbit.get_sex());
             values.put(BREED_COLUMN,newRabbit.get_breed());
             values.put(DOB_COLUMN, newRabbit.get_dateOfBirth().toString());
-            values.put(AGE_COLUMN, newRabbit.calculate_age());
+            //values.put(AGE_COLUMN, newRabbit.calculate_age());
             values.put(SOURCE_COLUMN, newRabbit.get_source());
             values.put(COLOUR_COLUMN, newRabbit.get_colour());
             SQLiteDatabase db = getWritableDatabase();
@@ -129,11 +129,12 @@ public class DbHandler extends SQLiteOpenHelper
                     String breed =c.getString(c.getColumnIndexOrThrow(BREED_COLUMN));
                     String source =c.getString(c.getColumnIndexOrThrow(SOURCE_COLUMN));
                     String colour =c.getString(c.getColumnIndexOrThrow(COLOUR_COLUMN));
-                    String age =c.getString(c.getColumnIndexOrThrow(AGE_COLUMN));
+
+                    //String age =c.getString(c.getColumnIndexOrThrow(AGE_COLUMN));
                     Integer id = c.getInt(c.getColumnIndexOrThrow(COLUMN_ID));
 
                     //MAKE THE RABBIT
-                    Rabbit newRabbit = new Rabbit(id,sex,dateOfBirth,currentRabbitTag,breed,source,colour,age);
+                    Rabbit newRabbit = new Rabbit(id,sex,dateOfBirth,currentRabbitTag,breed,source,colour);
                     rabbitArrayList.add(newRabbit);
 
 
@@ -157,7 +158,7 @@ public class DbHandler extends SQLiteOpenHelper
             values.put(BREED_COLUMN,selectedRabbit.get_breed());
             values.put(SOURCE_COLUMN,selectedRabbit.get_source());
             values.put(DOB_COLUMN, selectedRabbit.get_dateOfBirth().toString());
-            values.put(AGE_COLUMN, selectedRabbit.calculate_age());
+            //values.put(AGE_COLUMN, selectedRabbit.calculate_age());
             values.put(COLOUR_COLUMN, selectedRabbit.get_colour());
             SQLiteDatabase db = getWritableDatabase();
             db.update(RABBIT_TABLE,values,COLUMN_ID+ "=?",new String[]{String.valueOf(selectedRabbit.get_id())});

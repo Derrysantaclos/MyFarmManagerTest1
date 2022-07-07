@@ -46,7 +46,7 @@ public class RabbitRecyclerAdapter extends RecyclerView.Adapter<RabbitRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Rabbit rabbit = rabbitArrayList.get(position);
-        holder.rabbitAge.setText(rabbit.get_age());
+        holder.rabbitAge.setText(rabbit.calculate_age());
         holder.rabbitBreed.setText(rabbit.get_breed());
         holder.rabbitTag.setText(rabbit.get_tag());
     }

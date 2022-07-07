@@ -31,14 +31,14 @@ public class Rabbit
         _source = source;
         _colour =colour;
     }
-    public Rabbit(int id, String sex, LocalDate dateOfBirth, String tag, String breed, String source, String colour,String age) {
+    public Rabbit(int id, String sex, LocalDate dateOfBirth, String tag, String breed, String source, String colour) {
         _sex = sex;
         _dateOfBirth = dateOfBirth;
         _tag = tag;
         _breed = breed;
         _source = source;
         _colour =colour;
-        _age =age;
+        //_age =age;
         _id =id;
     }
 

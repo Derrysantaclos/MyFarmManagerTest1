@@ -59,7 +59,7 @@ public class RabbitFullDetails extends AppCompatActivity {
         if(extras!=null) {
            int selectedRabbitId = extras.getInt("adapterPosition");
        selectedRabbit =dbHandler.rabbitArrayList().get(selectedRabbitId);
-        detailRabbitAge.setText(selectedRabbit.get_age());
+        detailRabbitAge.setText(selectedRabbit.calculate_age());
             detailRabbitBreed.setText(selectedRabbit.get_breed());
             detailRabbitColour.setText(selectedRabbit.get_colour());
             detailRabbitDateOfBirth.setText(selectedRabbit.get_dateOfBirth().toString());
