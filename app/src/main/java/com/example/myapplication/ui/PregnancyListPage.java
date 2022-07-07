@@ -25,6 +25,7 @@ public class PregnancyListPage extends AppCompatActivity {
     private PregnancyFormDialog pregnancyFormDialog;
     private String doeTag;
     private ArrayList<Pregnancy> pregnancyArrayList;
+    private ArrayList<Pregnancy> filteredPregnancyArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,8 @@ public class PregnancyListPage extends AppCompatActivity {
 
 
         pregnancyDbHandler = new PregnancyDbHandler2(this,null,null,1);
-        pregnancyArrayList = pregnancyDbHandler.pregnancyArrayList();
-        pregnancyRecyclerAdapter = new PregnancyRecyclerAdapter(this,pregnancyArrayList, pregnancyDbHandler);
+
+        pregnancyRecyclerAdapter = new PregnancyRecyclerAdapter(this,filterPregnancyArrayList(doeTag),filteredPregnancyArrayList.size(), pregnancyDbHandler);
 
         pregnancyRecyclerView= findViewById(R.id.pregnancyRecyclerView);
         pregnancyRecyclerView.setHasFixedSize(true);
@@ -54,6 +55,21 @@ public class PregnancyListPage extends AppCompatActivity {
         pregnancyFormDialog =new PregnancyFormDialog(pregnancyDbHandler,this,doeTag);
 
 
+    }
+    private ArrayList<Pregnancy> filterPregnancyArrayList(String doeTag) {
+        pregnancyArrayList = pregnancyDbHandler.pregnancyArrayList();
+        filteredPregnancyArrayList = new ArrayList<>();
+        for (Pregnancy pregnancy : pregnancyArrayList) {
+            if (pregnancy.getDoeTag().equals(doeTag)) {
+                filteredPregnancyArrayList.add(pregnancy);
+            }
+        }
+        return filteredPregnancyArrayList;
+    }
+
+    //after filtering by doe
+    private int filterdCount(ArrayList<Pregnancy> filteredPregnancyArrayList){
+        return filteredPregnancyArrayList.size();
     }
 
     public void showPregnancyFormDialog(View v){

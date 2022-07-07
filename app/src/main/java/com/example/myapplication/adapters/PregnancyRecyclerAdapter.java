@@ -1,5 +1,7 @@
 package com.example.myapplication.adapters;
 
+import static com.example.myapplication.R.color.*;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 
+import com.example.myapplication.R.color;
 import com.example.myapplication.data.PregnancyDbHandler2;
 import com.example.myapplication.models.Pregnancy;
 import com.example.myapplication.ui.RabbitListDisplayPage;
@@ -32,12 +35,14 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
     private final PregnancyDbHandler2 pregnancyDbHandler;
     private Context context;
     private final ArrayList<Pregnancy> pregnancyArrayList;
+    private int filteredArraySize;
 
-    public PregnancyRecyclerAdapter(Context context,ArrayList<Pregnancy> pregnancyArrayList, PregnancyDbHandler2 pregnancyDbHandler)
+    public PregnancyRecyclerAdapter(Context context,ArrayList<Pregnancy> pregnancyArrayList, int filteredArraySize, PregnancyDbHandler2 pregnancyDbHandler)
     {
         this.pregnancyDbHandler= pregnancyDbHandler;
         this.context=context;
         this.pregnancyArrayList=pregnancyArrayList;
+        this.filteredArraySize =filteredArraySize;
     }
 
     @NonNull
@@ -58,6 +63,10 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
         //holder.pregnancyRecyclerId.setText(aPregnancy.getId());
         holder.pregnancyRecyclerId.setText(String.valueOf(aPregnancy.getId()));
         holder.pregnancyRecyclerDoeTag.setText(aPregnancy.getDoeTag());
+        holder.pregnancyConfirmationStatus.setText(aPregnancy.getPregnancyConfirmation());
+//        if (holder.pregnancyConfirmationStatus.getText().toString().equalsIgnoreCase("True")){
+//            holder.pregnancyConfirmationStatus.setTextColor(black);
+//    }
         holder.pregnancyRecyclerNumberOfDays.setText( String.valueOf(aPregnancy.calculateNoOfDays()));
         Log.d("Preg", String.valueOf(aPregnancy.getNumberOfDays()));
         Log.d("Preg", String.valueOf(getItemCount()));
@@ -67,7 +76,7 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
 
     @Override
     public int getItemCount() {
-        return pregnancyDbHandler.pregnancyCount();
+        return filteredArraySize;
 
     }
 
@@ -83,6 +92,7 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
       public Button pregnancyRecyclerDeleteButton;
         public Button pregnancyRecyclerEditButton;
         private Pregnancy selectedPregnancy;
+        public TextView pregnancyConfirmationStatus;
 
 
 
@@ -95,9 +105,11 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
             pregnancyRecyclerId=itemView.findViewById(R.id.pregnancyRecyclerId);
             pregnancyRecyclerDeleteButton=itemView.findViewById(R.id.pregnanyRecyclerDeleteButton);
             pregnancyRecyclerEditButton=itemView.findViewById(R.id.pregnancyRecyclerEditButton);
+            pregnancyConfirmationStatus=itemView.findViewById(R.id.pregnancyRecyclerConfirmationStatus);
             itemView.setOnClickListener(this);
             pregnancyRecyclerEditButton.setOnClickListener(this);
             pregnancyRecyclerDeleteButton.setOnClickListener(this);
+
         }
 
 

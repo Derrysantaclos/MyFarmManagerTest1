@@ -33,6 +33,7 @@ public class PregnancyDbHandler2 extends SQLiteOpenHelper {
     public static final String PREGNANCY_CONFIRMATION_COLUMN= "_pregnancy_confirmation";
     public static final String MESSAGE ="_message";
     public static final String DELIVERY_DATE_COLUMN ="_delivery_date";
+    public static final String DOE_PREGNANCY_COUNT_COLUMN ="_doe_pregnancy_count";
 
 
     public PregnancyDbHandler2(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version)
@@ -51,6 +52,7 @@ public class PregnancyDbHandler2 extends SQLiteOpenHelper {
                 PREGNANCY_CONFIRMATION_COLUMN + " TEXT, " +
                 MESSAGE + " TEXT, " +
                 PREGNANCY_COUNT_COLUMN + " INT, " +
+                DOE_PREGNANCY_COUNT_COLUMN+ " INT, "+
                 DELIVERY_DATE_COLUMN+ " TEXT);";
 
         db.execSQL(rabbitTableQuery);

@@ -111,7 +111,7 @@ public class PregnancyFormDialog
         else if(!pregnancyFormValidator.inputDateValidator(deliveryDate)& !deliveryDate.getText().toString().equalsIgnoreCase("nil")){
             Snackbar.make(view, "Delivery Date not in right format. Leave as Nil if not yet delivered", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
-        else if (pregnancyFormValidator.inputDateValidator(crossDate))
+        else if (!pregnancyFormValidator.inputDateValidator(crossDate))
         {
             Snackbar.make(view, "Ensure mate date is in right format YYYY-MM-DD", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
