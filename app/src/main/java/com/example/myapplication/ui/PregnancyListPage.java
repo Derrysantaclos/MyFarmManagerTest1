@@ -11,15 +11,20 @@ import android.view.View;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.PregnancyRecyclerAdapter;
 import com.example.myapplication.data.PregnancyDbHandler;
+import com.example.myapplication.data.PregnancyDbHandler2;
+import com.example.myapplication.models.Pregnancy;
 import com.example.myapplication.util.PregnancyFormDialog;
+
+import java.util.ArrayList;
 
 public class PregnancyListPage extends AppCompatActivity {
 
-    private PregnancyDbHandler pregnancyDbHandler;
+    private PregnancyDbHandler2 pregnancyDbHandler;
     private PregnancyRecyclerAdapter pregnancyRecyclerAdapter;
     private RecyclerView pregnancyRecyclerView;
     private PregnancyFormDialog pregnancyFormDialog;
     private String doeTag;
+    private ArrayList<Pregnancy> pregnancyArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +34,14 @@ public class PregnancyListPage extends AppCompatActivity {
         //get doeTag as extras from previous page
         Bundle extras= getIntent().getExtras();
         if(extras!=null) {
-            String doeTag = extras.getString("doeTag");
+           doeTag = extras.getString("doeTag");
         }
 
 
-        pregnancyDbHandler = new PregnancyDbHandler(this,null,null,1);
-        pregnancyRecyclerAdapter = new PregnancyRecyclerAdapter(this, pregnancyDbHandler);
+
+        pregnancyDbHandler = new PregnancyDbHandler2(this,null,null,1);
+        pregnancyArrayList = pregnancyDbHandler.pregnancyArrayList();
+        pregnancyRecyclerAdapter = new PregnancyRecyclerAdapter(this,pregnancyArrayList, pregnancyDbHandler);
 
         pregnancyRecyclerView= findViewById(R.id.pregnancyRecyclerView);
         pregnancyRecyclerView.setHasFixedSize(true);
