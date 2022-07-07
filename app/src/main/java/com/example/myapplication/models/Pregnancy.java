@@ -11,11 +11,11 @@ public class Pregnancy
     private String buckTag;
     private LocalDate crossedDate;
     private int numberOfDays;
-    private Boolean pregnancyConfirmation;
+    private String pregnancyConfirmation;
     private String message;
     private String deliveryDate;
 
-    public Pregnancy(String doeTag, String buckTag, LocalDate crossedDate, Boolean pregnancyConfirmation, String message, String deliveryDate) {
+    public Pregnancy(String doeTag, String buckTag, LocalDate crossedDate, String pregnancyConfirmation, String message, String deliveryDate) {
         this.doeTag = doeTag;
         this.buckTag = buckTag;
         this.crossedDate = crossedDate;
@@ -23,7 +23,7 @@ public class Pregnancy
         this.message = message;
         this.deliveryDate = deliveryDate;
     }
-    public Pregnancy(int id,int numberOfDays,String doeTag, String buckTag, LocalDate crossedDate, Boolean pregnancyConfirmation, String message, String deliveryDate) {
+    public Pregnancy(int id,String doeTag, String buckTag, LocalDate crossedDate, String pregnancyConfirmation, String message, String deliveryDate) {
         this.id = id;
         this.doeTag = doeTag;
         this.buckTag = buckTag;
@@ -31,7 +31,6 @@ public class Pregnancy
         this.pregnancyConfirmation = pregnancyConfirmation;
         this.message = message;
         this.deliveryDate = deliveryDate;
-        this.numberOfDays = numberOfDays;
     }
 
     public int getId() {
@@ -71,6 +70,7 @@ public class Pregnancy
     }
 
     public int calculateNoOfDays() {
+
         int months =Period.between(crossedDate,LocalDate.now()).getMonths();
         int days = Period.between(crossedDate,LocalDate.now()).getDays();
         this.numberOfDays = days+(months*30);
@@ -78,11 +78,11 @@ public class Pregnancy
 
     }
 
-    public Boolean getPregnancyConfirmation() {
+    public String getPregnancyConfirmation() {
         return pregnancyConfirmation;
     }
 
-    public void setPregnancyConfirmation(Boolean pregnancyConfirmation) {
+    public void setPregnancyConfirmation(String pregnancyConfirmation) {
         this.pregnancyConfirmation = pregnancyConfirmation;
     }
 

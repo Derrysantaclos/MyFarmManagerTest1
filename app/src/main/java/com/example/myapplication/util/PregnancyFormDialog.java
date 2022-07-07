@@ -12,7 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.R;
+import com.example.myapplication.adapters.PregnancyRecyclerAdapter;
 import com.example.myapplication.data.DbHandler;
 import com.example.myapplication.data.PregnancyDbHandler;
 import com.example.myapplication.data.PregnancyDbHandler2;
@@ -23,12 +26,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PregnancyFormDialog
 {
     private AlertDialog.Builder pregnancyAlertDialogBuilder;
-    private AlertDialog pregnancyAlertDialog;
+    public AlertDialog pregnancyAlertDialog;
     private Spinner buckTag;
     private EditText crossDate;
     private Spinner pregnancyConfirmation;
@@ -38,6 +42,8 @@ public class PregnancyFormDialog
     private String doeTag;
     private View pregnancyDialogView;
     private Button savePregnancyButton;
+    private ArrayAdapter buckTagsAdapter;
+    private ArrayAdapter pregnancyConfirmationAdapter;
 
     private MyDateTimeFormatter myDateTimeFormatter=new MyDateTimeFormatter();
     private PregnancyFormValidator pregnancyFormValidator = new PregnancyFormValidator();
@@ -61,6 +67,7 @@ public class PregnancyFormDialog
         pregnancyAlertDialogBuilder =new AlertDialog.Builder(context);
         pregnancyAlertDialogBuilder.setView(pregnancyDialogView);
         pregnancyAlertDialog=pregnancyAlertDialogBuilder.create();
+        deliveryDate.setText("Nil");
 
         //get a list of all male rabbits tags for the autoComplete text View
         DbHandler dbHandler = new DbHandler(context, null,null,1);
@@ -72,9 +79,13 @@ public class PregnancyFormDialog
         }
         buckRabbitList.add("Others");
 
+        String[] confirmationStatusOptions = {"True", "False", "Unconfirmed"};
+
         //set the buckTag as an Adapter
-        ArrayAdapter buckTagsAdapter = new ArrayAdapter(context,android.R.layout.simple_list_item_1,buckRabbitList);
+        buckTagsAdapter = new ArrayAdapter(context,android.R.layout.simple_list_item_1,buckRabbitList);
         buckTag.setAdapter(buckTagsAdapter);
+        pregnancyConfirmationAdapter=new ArrayAdapter(context,android.R.layout.simple_list_item_1,confirmationStatusOptions);
+        pregnancyConfirmation.setAdapter(pregnancyConfirmationAdapter);
     }
 
     //the add Pregnancy action
@@ -91,47 +102,98 @@ public class PregnancyFormDialog
         });
     }
 
-    public void savePregnancy(View view){
+    public void savePregnancy(View view)
+    {
         if (pregnancyFormValidator.requiredFieldEmpty(crossDate)){
-            Snackbar.make(view, "Tag Exists Already", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Snackbar.make(view, "Ensure all fields are filled", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
         //ensure delivery date is in right format or Nil
         else if(!pregnancyFormValidator.inputDateValidator(deliveryDate)& !deliveryDate.getText().toString().equalsIgnoreCase("nil")){
             Snackbar.make(view, "Delivery Date not in right format. Leave as Nil if not yet delivered", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
-        else if (pregnancyFormValidator.inputDateValidator(crossDate)){
-            String newPregnancyBuckTag = buckTag.getSelectedItem().toString();
-            Boolean newPregnancyConfirmation = pregnancyConfirmation.getSelectedItem().toString().equalsIgnoreCase("true");
-            LocalDate newPregnancyCrossDate = myDateTimeFormatter.dateStringToLocalDate(crossDate.getText().toString());
-            String newPregnancyDeliveryDate = deliveryDate.getText().toString();
+        else if (pregnancyFormValidator.inputDateValidator(crossDate))
+        {
+            Snackbar.make(view, "Ensure mate date is in right format YYYY-MM-DD", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else
+            {
+                String newPregnancyBuckTag = buckTag.getSelectedItem().toString();
+                String newPregnancyConfirmation = pregnancyConfirmation.getSelectedItem().toString();
+                LocalDate newPregnancyCrossDate = myDateTimeFormatter.dateStringToLocalDate(crossDate.getText().toString());
+                String newPregnancyDeliveryDate = deliveryDate.getText().toString();
 
 
-            //LocalDate newPregnancyDeliveryDate = myDateTimeFormatter.dateStringToLocalDate(deliveryDate.getText().toString());
+                //LocalDate newPregnancyDeliveryDate = myDateTimeFormatter.dateStringToLocalDate(deliveryDate.getText().toString());
 
 
-            Pregnancy newPregnancy = new Pregnancy(doeTag,newPregnancyBuckTag,newPregnancyCrossDate,
-                    newPregnancyConfirmation,"",newPregnancyDeliveryDate);
+                Pregnancy newPregnancy = new Pregnancy(doeTag,newPregnancyBuckTag,newPregnancyCrossDate,
+                        newPregnancyConfirmation,"",newPregnancyDeliveryDate);
 
-            pregnancyDbHandler.addPregnancy(newPregnancy);
-            Snackbar.make(view, "SAVED SUCCESSFULLY", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+                pregnancyDbHandler.addPregnancy(newPregnancy);
+                Snackbar.make(view, "SAVED SUCCESSFULLY"+doeTag, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
-                    //refresh page
+                        //refresh page
+                        pregnancyAlertDialog.dismiss();
+                        Intent refresh = new Intent(context,context.getClass());
+                        context.startActivity(refresh);
+
+                        ((Activity) context).finish();
+
+                    }
+                }, 1200);
+
+
+            }
+        }
+
+
+
+    public void editPregnancy(Pregnancy selectedPregnancy,PregnancyRecyclerAdapter pra, int adapterposition){
+        setViews();
+        crossDate.setText(selectedPregnancy.getCrossedDate().toString());
+        buckTag.setSelection(buckTagsAdapter.getPosition(selectedPregnancy.getBuckTag()));
+        pregnancyConfirmation.setSelection(pregnancyConfirmationAdapter.getPosition(selectedPregnancy.getPregnancyConfirmation()));
+        deliveryDate.setText(selectedPregnancy.getDeliveryDate());
+        pregnancyAlertDialog.show();
+        savePregnancyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updatePregnancy(selectedPregnancy,v,pra,adapterposition);
+            }
+        });
+    }
+    public void updatePregnancy(Pregnancy selectedPregnancy, View view, PregnancyRecyclerAdapter pra,int adapterPosition){
+        if(!pregnancyFormValidator.inputDateValidator(crossDate))
+        {
+            Snackbar.make(view, "Ensure mate date is in right format YYYY-MM-DD", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else if(!pregnancyFormValidator.inputDateValidator(deliveryDate)& !deliveryDate.getText().toString().equalsIgnoreCase("nil")){
+            Snackbar.make(view, "Delivery Date not in right format. Leave as Nil if not yet delivered", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else if(pregnancyFormValidator.requiredFieldEmpty(crossDate)){
+            Snackbar.make(view, "Ensure all fields are filled", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
+        else{
+            selectedPregnancy.setBuckTag(buckTag.getSelectedItem().toString());
+            selectedPregnancy.setCrossedDate(myDateTimeFormatter.dateStringToLocalDate(crossDate.getText().toString()));
+            selectedPregnancy.setPregnancyConfirmation(pregnancyConfirmation.getSelectedItem().toString());
+            selectedPregnancy.setDeliveryDate(deliveryDate.getText().toString());
+            pregnancyDbHandler.updatePregnancy(selectedPregnancy);
+
+
                     pregnancyAlertDialog.dismiss();
+                    pra.notifyItemChanged(adapterPosition);
 
-                    //TODO change back to d pregnancy det
-                    Intent refresh = new Intent(context, RabbitListDisplayPage.class);
-                    context.startActivity(refresh);
+                    //viewh.notifyItemChanged(adapterPosition);
 
-                    ((Activity) context).finish();
 
-                }
-            }, 1200);
 
 
         }
+
 
     }
 

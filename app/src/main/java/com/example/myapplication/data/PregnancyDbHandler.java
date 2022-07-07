@@ -103,16 +103,14 @@ public class PregnancyDbHandler extends AbstractDb{
 
             String crossedDateString = myCursor.getString(myCursor.getColumnIndexOrThrow(CROSSED_DATE_COLUMN));
             int numberOfDays = myCursor.getInt(myCursor.getColumnIndexOrThrow(PREGNANCY_COUNT_COLUMN));
-            String pregnancyConfirmationString = myCursor.getString(myCursor.getColumnIndexOrThrow(PREGNANCY_CONFIRMATION_COLUMN));
-            Boolean pregnancyConfirmation = pregnancyConfirmationString.equalsIgnoreCase("yes")
-                    | pregnancyConfirmationString.equalsIgnoreCase("true");
+            String pregnancyConfirmation = myCursor.getString(myCursor.getColumnIndexOrThrow(PREGNANCY_CONFIRMATION_COLUMN));
 
             String message = myCursor.getString(myCursor.getColumnIndexOrThrow(MESSAGE));
             String deliveryDateString = myCursor.getString(myCursor.getColumnIndexOrThrow(DELIVERY_DATE_COLUMN));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate crossedDate = LocalDate.parse(crossedDateString, formatter);
 
-            Pregnancy pregnancy = new Pregnancy(id,numberOfDays,doeTag, buckTag, crossedDate, pregnancyConfirmation, message, deliveryDateString);
+            Pregnancy pregnancy = new Pregnancy(id,doeTag, buckTag, crossedDate, pregnancyConfirmation, message, deliveryDateString);
 
             pregnancyArrayList.add(pregnancy);
 

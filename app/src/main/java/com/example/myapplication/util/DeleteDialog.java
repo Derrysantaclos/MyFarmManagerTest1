@@ -31,7 +31,6 @@ public class DeleteDialog {
         deleteDialogView =((Activity)context).getLayoutInflater().inflate(R.layout.confirm_delete,null);
         confirmDeleteButton=deleteDialogView.findViewById(R.id.confirmDeleteButton);
         cancelDeleteButton=deleteDialogView.findViewById(R.id.cancelDeleteButton);
-
         deleteDialogBuilder =new AlertDialog.Builder(this.context);
         deleteDialogBuilder.setView(deleteDialogView);
         deleteDialog=deleteDialogBuilder.create();
@@ -39,7 +38,7 @@ public class DeleteDialog {
         cancelDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteDialog.dismiss();
+            deleteDialog.dismiss();
             }
         });
         confirmDeleteButton.setOnClickListener(new View.OnClickListener() {

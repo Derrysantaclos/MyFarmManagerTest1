@@ -47,7 +47,6 @@
             android:textAlignment="center"
             android:hint="Date of Mating (yyyy-mm-dd)"
             android:layout_below="@id/pregnancyDialogFormCrossDate"
-            android:entries="@array/booleanEntry"
         />
         <EditText
             android:id="@+id/pregnancyDialogFormDeliveryDate"

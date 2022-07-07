@@ -1,7 +1,9 @@
 package com.example.myapplication.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.data.DbHandler;
 import com.example.myapplication.models.Rabbit;
 import com.example.myapplication.ui.RabbitFullDetails;
+import com.example.myapplication.ui.RabbitListDisplayPage;
 import com.example.myapplication.util.DeleteDialog;
 import com.example.myapplication.util.RabbitFormDialog;
 
@@ -104,7 +107,6 @@ public class RabbitRecyclerAdapter extends RecyclerView.Adapter<RabbitRecyclerAd
                     break;
                 case R.id.recyclerDeleteButton:
                     DeleteDialog deleteDialog =new DeleteDialog(context,dbHandler);
-                    deleteDialog.showDeleteDialog(currentRabbit.get_id());
                     break;
                 default:
                     //rabbit details

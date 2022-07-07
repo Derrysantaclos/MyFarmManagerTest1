@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
@@ -83,6 +83,7 @@
 
             </LinearLayout>
           <LinearLayout
+              android:id="@+id/pregnancyRecyclerNumberOfDaysLayout"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_below="@id/pregnancyRecyclerCrossDateDetails"
@@ -101,6 +102,50 @@
               android:layout_below="@+id/pregnancyRecyclerBuckTag"
               />
           </LinearLayout>
+            <LinearLayout
+                android:id="@+id/pregnancyRecyclerStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pregnancyRecyclerNumberOfDaysLayout"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Status: "
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/pregnancyRecyclerConfirmationStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_red_light"
+                    android:text="Not Cofirmed"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_below="@+id/pregnancyRecyclerBuckTag"
+                    />
+            </LinearLayout>
+            <Button
+                android:id="@+id/pregnanyRecyclerDeleteButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pregnancyRecyclerStatus"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@android:color/transparent"
+                app:icon="@android:drawable/ic_delete"
+                app:iconTint="#E91E63" />
+
+            <Button
+                android:id="@+id/pregnancyRecyclerEditButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pregnancyRecyclerStatus"
+                android:layout_toStartOf="@+id/pregnanyRecyclerDeleteButton"
+                android:backgroundTint="@android:color/transparent"
+                app:icon="@android:drawable/ic_menu_edit"
+                app:iconTint="@android:color/holo_green_light" />
 
 
         </RelativeLayout>
