@@ -79,11 +79,22 @@ public class PregnancyDbHandler2 extends SQLiteOpenHelper {
         values.put(PREGNANCY_CONFIRMATION_COLUMN, newPregnancy.getPregnancyConfirmation());
         //values.put(MESSAGE, newRabbit.calculate_age());
         values.put(DELIVERY_DATE_COLUMN, newPregnancy.getDeliveryDate());
+        values.put(DOE_PREGNANCY_COUNT_COLUMN, doePregnancyCount(newPregnancy.getDoeTag())+1);
         //values.put(PREGNANCY_COUNT_COLUMN, newPregnancy.calculateNoOfDays());
         SQLiteDatabase db = getWritableDatabase();
         db.insert(PREGNANCY_TABLE,null,values);
     }
 
+
+    //GET DOE PREGNANCY COUNT
+    private int doePregnancyCount(String doeTag){
+        SQLiteDatabase db =getReadableDatabase();
+        String query ="SELECT * FROM PREGNANCY TABLE WHERE "+DOE_COLUMN+" = \""+doeTag+"\";";
+        Cursor c =db.rawQuery(query,null);
+        int count =c.getCount();
+        c.close();
+        return count;
+    }
     //DELETE
 
 
@@ -136,7 +147,10 @@ public class PregnancyDbHandler2 extends SQLiteOpenHelper {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate crossedDate = LocalDate.parse(crossedDateString, formatter);
 
-                    Pregnancy pregnancy = new Pregnancy(id, doeTag, buckTag, crossedDate, pregnancyConfirmation, message, deliveryDateString);
+                    Integer doePregnancyCount = myCursor.getInt(myCursor.getColumnIndexOrThrow(DOE_PREGNANCY_COUNT_COLUMN));
+
+                    Pregnancy pregnancy = new Pregnancy(id, doeTag, buckTag, crossedDate, pregnancyConfirmation,
+                            message, deliveryDateString,doePregnancyCount);
 
                     pregnancyArrayList.add(pregnancy);
 
