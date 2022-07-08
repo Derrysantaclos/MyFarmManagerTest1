@@ -22,7 +22,7 @@ public class PregnancyDbHandler2 extends SQLiteOpenHelper {
 
 
     public static final int DATABASE_VERSION =1;
-    public static final String DATABASE_NAME = "animals_pregnancy.db";
+    public static final String DATABASE_NAME = "animals_pregnancy2.db";
     public static final String PREGNANCY_TABLE= "pregnancy";
     public static final String COLUMN_ID ="_id";
     public static final String DOE_COLUMN ="_doe_tag";
@@ -89,7 +89,8 @@ public class PregnancyDbHandler2 extends SQLiteOpenHelper {
     //GET DOE PREGNANCY COUNT
     private int doePregnancyCount(String doeTag){
         SQLiteDatabase db =getReadableDatabase();
-        String query ="SELECT * FROM PREGNANCY TABLE WHERE "+DOE_COLUMN+" = \""+doeTag+"\";";
+
+        String query ="SELECT * FROM " +PREGNANCY_TABLE +" WHERE "+DOE_COLUMN+" = \""+doeTag+"\";";
         Cursor c =db.rawQuery(query,null);
         int count =c.getCount();
         c.close();

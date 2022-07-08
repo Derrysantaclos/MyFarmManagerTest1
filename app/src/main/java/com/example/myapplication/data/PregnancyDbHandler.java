@@ -86,42 +86,42 @@ public class PregnancyDbHandler extends AbstractDb{
 
     @Override
     public ArrayList<Object> objectstArrayList() {
-        SQLiteDatabase db =getReadableDatabase();
-
-        String query = "Select * from "+PREGNANCY_TABLE;
-
-        //ArrayList<Pregnancy> pregnancyArrayList=new ArrayList<>();
+//        SQLiteDatabase db =getReadableDatabase();
+//
+//        String query = "Select * from "+PREGNANCY_TABLE;
+//
+      //  ArrayList<Pregnancy> pregnancyArrayList=new ArrayList<>();
         ArrayList<Object> pregnancyArrayList = new ArrayList<>();
-        Cursor myCursor = db.rawQuery(query,null);
-        myCursor.moveToFirst();
-        while (!myCursor.isAfterLast())
-        {
-            if (myCursor.getString(myCursor.getColumnIndexOrThrow(COLUMN_ID))!=null) {
-                int id = myCursor.getInt(myCursor.getColumnIndexOrThrow(COLUMN_ID));
-            String doeTag = myCursor.getString(myCursor.getColumnIndexOrThrow(DOE_COLUMN));
-            String buckTag = myCursor.getString(myCursor.getColumnIndexOrThrow(BUCK_COLUMN));
-
-            String crossedDateString = myCursor.getString(myCursor.getColumnIndexOrThrow(CROSSED_DATE_COLUMN));
-            int numberOfDays = myCursor.getInt(myCursor.getColumnIndexOrThrow(PREGNANCY_COUNT_COLUMN));
-            String pregnancyConfirmation = myCursor.getString(myCursor.getColumnIndexOrThrow(PREGNANCY_CONFIRMATION_COLUMN));
-
-            String message = myCursor.getString(myCursor.getColumnIndexOrThrow(MESSAGE));
-            String deliveryDateString = myCursor.getString(myCursor.getColumnIndexOrThrow(DELIVERY_DATE_COLUMN));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate crossedDate = LocalDate.parse(crossedDateString, formatter);
-
-            Pregnancy pregnancy = new Pregnancy(id,doeTag, buckTag, crossedDate, pregnancyConfirmation, message, deliveryDateString);
-
-            pregnancyArrayList.add(pregnancy);
-
-        }
-
-
-
-        }
-        myCursor.close();
-
-        return pregnancyArrayList ;
+//        Cursor myCursor = db.rawQuery(query,null);
+//        myCursor.moveToFirst();
+//        while (!myCursor.isAfterLast())
+//        {
+//            if (myCursor.getString(myCursor.getColumnIndexOrThrow(COLUMN_ID))!=null) {
+//                int id = myCursor.getInt(myCursor.getColumnIndexOrThrow(COLUMN_ID));
+//            String doeTag = myCursor.getString(myCursor.getColumnIndexOrThrow(DOE_COLUMN));
+//            String buckTag = myCursor.getString(myCursor.getColumnIndexOrThrow(BUCK_COLUMN));
+//
+//            String crossedDateString = myCursor.getString(myCursor.getColumnIndexOrThrow(CROSSED_DATE_COLUMN));
+//            int numberOfDays = myCursor.getInt(myCursor.getColumnIndexOrThrow(PREGNANCY_COUNT_COLUMN));
+//            String pregnancyConfirmation = myCursor.getString(myCursor.getColumnIndexOrThrow(PREGNANCY_CONFIRMATION_COLUMN));
+//
+//            String message = myCursor.getString(myCursor.getColumnIndexOrThrow(MESSAGE));
+//            String deliveryDateString = myCursor.getString(myCursor.getColumnIndexOrThrow(DELIVERY_DATE_COLUMN));
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            LocalDate crossedDate = LocalDate.parse(crossedDateString, formatter);
+//
+//           // Pregnancy pregnancy = new Pregnancy(id,doeTag, buckTag, crossedDate, pregnancyConfirmation, message, deliveryDateString);
+//
+//            //pregnancyArrayList.add(pregnancy);
+//
+//        }
+//
+//
+//
+//        }
+//        myCursor.close();
+//
+       return pregnancyArrayList ;
     }
 
     @Override

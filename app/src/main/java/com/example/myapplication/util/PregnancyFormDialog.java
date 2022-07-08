@@ -21,6 +21,7 @@ import com.example.myapplication.data.PregnancyDbHandler;
 import com.example.myapplication.data.PregnancyDbHandler2;
 import com.example.myapplication.models.Pregnancy;
 import com.example.myapplication.models.Rabbit;
+import com.example.myapplication.ui.PregnancyListPage;
 import com.example.myapplication.ui.RabbitListDisplayPage;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -98,6 +99,7 @@ public class PregnancyFormDialog
             public void onClick(View v) {
                 savePregnancy(v);
 
+
             }
         });
     }
@@ -131,19 +133,24 @@ public class PregnancyFormDialog
 
                 pregnancyDbHandler.addPregnancy(newPregnancy);
                 Snackbar.make(view, "SAVED SUCCESSFULLY"+doeTag, Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                //refresh
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
 
                         //refresh page
                         pregnancyAlertDialog.dismiss();
-                        Intent refresh = new Intent(context,context.getClass());
+                        Intent refresh = new Intent(context, PregnancyListPage.class);
+                        refresh.putExtra("doeTag",newPregnancy.getDoeTag() );
                         context.startActivity(refresh);
 
                         ((Activity) context).finish();
 
                     }
                 }, 1200);
+
+
 
 
             }

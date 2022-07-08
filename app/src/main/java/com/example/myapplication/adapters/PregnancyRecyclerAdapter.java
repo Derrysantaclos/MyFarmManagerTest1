@@ -61,22 +61,20 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
         holder.pregnancyRecyclerCrossedDate.setText(aPregnancy.getCrossedDate().toString());
 
         //holder.pregnancyRecyclerId.setText(aPregnancy.getId());
-        holder.pregnancyRecyclerId.setText(String.valueOf(aPregnancy.getId()));
+        holder.pregnancyRecyclerId.setText(String.valueOf(aPregnancy.getDoePregnancyCount()));
         holder.pregnancyRecyclerDoeTag.setText(aPregnancy.getDoeTag());
         holder.pregnancyConfirmationStatus.setText(aPregnancy.getPregnancyConfirmation());
 //        if (holder.pregnancyConfirmationStatus.getText().toString().equalsIgnoreCase("True")){
 //            holder.pregnancyConfirmationStatus.setTextColor(black);
 //    }
         holder.pregnancyRecyclerNumberOfDays.setText( String.valueOf(aPregnancy.calculateNoOfDays()));
-        Log.d("Preg", String.valueOf(aPregnancy.getNumberOfDays()));
-        Log.d("Preg", String.valueOf(getItemCount()));
-
+        Log.d("Preg", String.valueOf(aPregnancy.getDoePregnancyCount()));
     }
 
 
     @Override
     public int getItemCount() {
-        return filteredArraySize;
+        return pregnancyArrayList.size();
 
     }
 
@@ -129,12 +127,15 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
                             pregnancyDeleteDialog.deleteDialog.dismiss();
                         }
                     });
-                    pregnancyDeleteDialog.confirmDeleteButton.setOnClickListener(new View.OnClickListener() {
+                    pregnancyDeleteDialog.confirmDeleteButton.setOnClickListener(new View.OnClickListener()
+                    {
                         @Override
                         public void onClick(View v) {
-                            pregnancyDbHandler.deletePregnancy(selectedPregnancy.getId());
-                            notifyItemRemoved(adapterPosition);
+
                             pregnancyDeleteDialog.deleteDialog.dismiss();
+                            deleteItem(selectedPregnancy.getId());
+
+
                             Toast.makeText(context,"Deleted", Toast.LENGTH_LONG ).show();
                         }
                     });
@@ -146,6 +147,13 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
 
             }
 
+
+        }
+        private void deleteItem(int pregnancyId){
+            pregnancyDbHandler.deletePregnancy(pregnancyId);
+
+            pregnancyArrayList.remove(getAdapterPosition());
+            notifyItemRemoved(getAdapterPosition());
         }
     }
 }

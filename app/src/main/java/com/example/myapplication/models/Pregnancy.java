@@ -14,6 +14,7 @@ public class Pregnancy
     private String pregnancyConfirmation;
     private String message;
     private String deliveryDate;
+    private int doePregnancyCount;
 
     public Pregnancy(String doeTag, String buckTag, LocalDate crossedDate, String pregnancyConfirmation, String message, String deliveryDate) {
         this.doeTag = doeTag;
@@ -23,7 +24,7 @@ public class Pregnancy
         this.message = message;
         this.deliveryDate = deliveryDate;
     }
-    public Pregnancy(int id,String doeTag, String buckTag, LocalDate crossedDate, String pregnancyConfirmation, String message, String deliveryDate) {
+    public Pregnancy(int id,String doeTag, String buckTag, LocalDate crossedDate, String pregnancyConfirmation, String message, String deliveryDate,int doePregnancyCount) {
         this.id = id;
         this.doeTag = doeTag;
         this.buckTag = buckTag;
@@ -31,10 +32,14 @@ public class Pregnancy
         this.pregnancyConfirmation = pregnancyConfirmation;
         this.message = message;
         this.deliveryDate = deliveryDate;
+        this.doePregnancyCount=doePregnancyCount;
     }
 
     public int getId() {
         return id;
+    }
+    public int getDoePregnancyCount() {
+        return doePregnancyCount;
     }
 
     public void setId(int id) {

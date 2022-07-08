@@ -73,6 +73,8 @@ public class PregnancyListPage extends AppCompatActivity {
     }
 
     public void showPregnancyFormDialog(View v){
+
         pregnancyFormDialog.addPregnancy();
+
     }
 }
