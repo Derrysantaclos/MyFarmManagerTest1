@@ -1,33 +1,52 @@
 package com.example.myapplication.util;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.widget.DatePicker;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
+import android.widget.EditText;
+
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Locale;
 
 
-public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class DatePickerFragment {
+    final Calendar myCalender = Calendar.getInstance();
 
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //lets make an instance, so dat once it is called it sets as this
-        final Calendar c = Calendar.getInstance();
-        int year = c.YEAR;
-        int month=c.MONTH;
-        int days = c.DAY_OF_WEEK;
 
-        return new DatePickerDialog(requireContext(),this,year,month,days);
+
+
+    public void useDatePickerDialog(EditText crossDate){
+
+
+        DatePickerDialog.OnDateSetListener selectDate= (view, year, month, dayOfMonth) -> {
+            myCalender.set(Calendar.YEAR, year);
+            myCalender.set(Calendar.MONTH, month);
+            myCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            setCrossDate(crossDate);
+        };
+        crossDate.setOnClickListener(v -> {
+            if (!crossDate.getText().toString().equals("")){
+                MyDateTimeFormatter myDateTimeFormatter =new MyDateTimeFormatter();
+                LocalDate crossDateDate= myDateTimeFormatter.dateStringToLocalDate(crossDate.getText().toString());
+                new DatePickerDialog(v.getContext(),selectDate,crossDateDate.getYear(),
+                        crossDateDate.getMonthValue()-1,crossDateDate.getDayOfMonth()).show();
+            }else
+            {new DatePickerDialog(v.getContext(),selectDate,myCalender.get(Calendar.YEAR),
+                    myCalender.get(Calendar.MONTH),myCalender.get(Calendar.DAY_OF_MONTH)).show();}
+
+        });
+
+
+    }
+    private void setCrossDate(EditText crossDate){
+        String myFormat ="yyyy-MM-dd";
+        SimpleDateFormat dateFormat= new SimpleDateFormat(myFormat, Locale.UK);
+        crossDate.setText(dateFormat.format(myCalender.getTime()));
 
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-    }
 }

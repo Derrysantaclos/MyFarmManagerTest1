@@ -39,7 +39,7 @@ private EditText rabbitSex;
 private Button rabbitSaveButton;
 private Context context;
 private DbHandler dbHandler;
-
+private final DatePickerFragment datePickerFragment =new DatePickerFragment();
 
 
     public RabbitFormDialog(Context context,DbHandler dbHandler)
@@ -59,6 +59,9 @@ private final Validator validator= new Validator();
         rabbitSource =rabbitFormDialogView.findViewById(R.id.source);
         rabbitSex =rabbitFormDialogView.findViewById(R.id.sex);
         rabbitColour =rabbitFormDialogView.findViewById(R.id.colour);
+
+
+        datePickerFragment.useDatePickerDialog(rabbitDateofBirth);
 
         //the dialog
         rabbitFormDialogBuilder =new AlertDialog.Builder(this.context);
@@ -150,13 +153,16 @@ private final Validator validator= new Validator();
     public void showCurrentRabbitDialog(Rabbit rabbit){
         //get the details of the rabbit and fills it
         setViewFields();
+
         rabbitTag.setText(rabbit.get_tag());
         rabbitBreed.setText(rabbit.get_breed());
         rabbitColour.setText(rabbit.get_colour());
         rabbitSex.setText(rabbit.get_sex());
         rabbitDateofBirth.setText(rabbit.get_dateOfBirth().toString());
+        datePickerFragment.useDatePickerDialog(rabbitDateofBirth);
         rabbitSource.setText(rabbit.get_source());
         rabbitFormDialog.show();
+
         rabbitSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

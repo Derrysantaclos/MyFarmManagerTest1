@@ -46,6 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sex"
                 android:hint="@string/date_of_birth"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
                 android:inputType="date|text" />
 
             <EditText

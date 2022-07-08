@@ -1,53 +1,54 @@
 package com.example.myapplication.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.PregnancyRecyclerAdapter;
 import com.example.myapplication.data.DbHandler;
-import com.example.myapplication.data.PregnancyDbHandler;
+
 import com.example.myapplication.data.PregnancyDbHandler2;
 import com.example.myapplication.models.Pregnancy;
 import com.example.myapplication.models.Rabbit;
 import com.example.myapplication.ui.PregnancyListPage;
-import com.example.myapplication.ui.RabbitListDisplayPage;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class PregnancyFormDialog
 {
-    private AlertDialog.Builder pregnancyAlertDialogBuilder;
     public AlertDialog pregnancyAlertDialog;
     private Spinner buckTag;
     private EditText crossDate;
     private Spinner pregnancyConfirmation;
     private EditText deliveryDate;
-    private PregnancyDbHandler2 pregnancyDbHandler;
-    private Context context;
-    private String doeTag;
-    private View pregnancyDialogView;
+    private final PregnancyDbHandler2 pregnancyDbHandler;
+    private final Context context;
+    private final String doeTag;
     private Button savePregnancyButton;
     private ArrayAdapter buckTagsAdapter;
     private ArrayAdapter pregnancyConfirmationAdapter;
+    final Calendar myCalender = Calendar.getInstance();
+    private final DatePickerFragment datePickerFragment=new DatePickerFragment();
 
-    private MyDateTimeFormatter myDateTimeFormatter=new MyDateTimeFormatter();
-    private PregnancyFormValidator pregnancyFormValidator = new PregnancyFormValidator();
+    private final MyDateTimeFormatter myDateTimeFormatter=new MyDateTimeFormatter();
+    private final PregnancyFormValidator pregnancyFormValidator = new PregnancyFormValidator();
 
     public PregnancyFormDialog(PregnancyDbHandler2 pregnancyDbHandler, Context context, String doeTag) {
         this.pregnancyDbHandler = pregnancyDbHandler;
@@ -55,19 +56,40 @@ public class PregnancyFormDialog
         this.doeTag=doeTag;
     }
 //assign all the fields
+    @SuppressLint("SetTextI18n")
     private void setViews()
     {
-        pregnancyDialogView=((Activity)context).getLayoutInflater().inflate(R.layout.pregancy_form_dialog, null);
-        crossDate=pregnancyDialogView.findViewById(R.id.pregnancyDialogFormCrossDate);
-        pregnancyConfirmation=pregnancyDialogView.findViewById(R.id.pregnancyDialogFormConfirmation);
-        deliveryDate =pregnancyDialogView.findViewById(R.id.pregnancyDialogFormDeliveryDate);
+        View pregnancyDialogView = ((Activity) context).getLayoutInflater().inflate(R.layout.pregancy_form_dialog, null);
+        crossDate= pregnancyDialogView.findViewById(R.id.pregnancyDialogFormCrossDate);
+        pregnancyConfirmation= pregnancyDialogView.findViewById(R.id.pregnancyDialogFormConfirmation);
+        deliveryDate = pregnancyDialogView.findViewById(R.id.pregnancyDialogFormDeliveryDate);
         buckTag = pregnancyDialogView.findViewById(R.id.pregnancyDialogFormBuckTag);
-        savePregnancyButton =pregnancyDialogView.findViewById(R.id.savePregnancyButton);
+        savePregnancyButton = pregnancyDialogView.findViewById(R.id.savePregnancyButton);
+        datePickerFragment.useDatePickerDialog(crossDate);
+
+//        DatePickerDialog.OnDateSetListener selectDate= new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                myCalender.set(Calendar.YEAR, year);
+//                myCalender.set(Calendar.MONTH,month);
+//                myCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//                setCrossDate();
+//            }
+//        };
+//        crossDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new DatePickerDialog(context,selectDate,myCalender.get(Calendar.YEAR),
+//                        myCalender.get(Calendar.MONTH),myCalender.get(Calendar.DAY_OF_MONTH)).show();
+//            }
+//        });
+
+
 
         //Dialog builder
-        pregnancyAlertDialogBuilder =new AlertDialog.Builder(context);
+        AlertDialog.Builder pregnancyAlertDialogBuilder = new AlertDialog.Builder(context);
         pregnancyAlertDialogBuilder.setView(pregnancyDialogView);
-        pregnancyAlertDialog=pregnancyAlertDialogBuilder.create();
+        pregnancyAlertDialog= pregnancyAlertDialogBuilder.create();
         deliveryDate.setText("Nil");
 
         //get a list of all male rabbits tags for the autoComplete text View
@@ -89,12 +111,20 @@ public class PregnancyFormDialog
         pregnancyConfirmation.setAdapter(pregnancyConfirmationAdapter);
 
     }
+    private void setCrossDate(){
+        String myFormat ="yyyy-MM-dd";
+        SimpleDateFormat dateFormat= new SimpleDateFormat(myFormat, Locale.UK);
+        crossDate.setText(dateFormat.format(myCalender.getTime()));
+
+    }
+
 
     //the add Pregnancy action
 
     public void addPregnancy(){
         setViews();
         pregnancyAlertDialog.show();
+        crossDate.setText(LocalDate.now().toString());
         savePregnancyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,12 +196,7 @@ public class PregnancyFormDialog
         pregnancyConfirmation.setSelection(pregnancyConfirmationAdapter.getPosition(selectedPregnancy.getPregnancyConfirmation()));
         deliveryDate.setText(selectedPregnancy.getDeliveryDate());
         pregnancyAlertDialog.show();
-        savePregnancyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updatePregnancy(selectedPregnancy,v,pra,adapterposition);
-            }
-        });
+        savePregnancyButton.setOnClickListener(v -> updatePregnancy(selectedPregnancy,v,pra,adapterposition));
     }
     public void updatePregnancy(Pregnancy selectedPregnancy, View view, PregnancyRecyclerAdapter pra,int adapterPosition){
         if(!pregnancyFormValidator.inputDateValidator(crossDate))

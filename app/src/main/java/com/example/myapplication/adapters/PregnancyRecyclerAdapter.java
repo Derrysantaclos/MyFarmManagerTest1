@@ -66,7 +66,7 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
             holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#00FF00"));
     }else if(holder.pregnancyConfirmationStatus.getText().toString().equalsIgnoreCase("False")){
             holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#FF0000"));
-        }
+        }else{holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#FFFFFF"));}
         holder.pregnancyRecyclerNumberOfDays.setText( String.valueOf(aPregnancy.calculateNoOfDays()));
     }
 
