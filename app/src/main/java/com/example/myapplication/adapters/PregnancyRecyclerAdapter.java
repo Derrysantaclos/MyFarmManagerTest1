@@ -1,12 +1,11 @@
 package com.example.myapplication.adapters;
 
-import static com.example.myapplication.R.color.*;
 
-import android.app.Activity;
+
+
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 
-import com.example.myapplication.R.color;
+
 import com.example.myapplication.data.PregnancyDbHandler2;
 import com.example.myapplication.models.Pregnancy;
-import com.example.myapplication.ui.RabbitListDisplayPage;
-import com.example.myapplication.util.DeleteDialog;
 import com.example.myapplication.util.PregnancyDeleteDialog;
 import com.example.myapplication.util.PregnancyFormDialog;
 
@@ -33,16 +30,15 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
 {
 
     private final PregnancyDbHandler2 pregnancyDbHandler;
-    private Context context;
+    private final Context context;
     private final ArrayList<Pregnancy> pregnancyArrayList;
-    private int filteredArraySize;
 
-    public PregnancyRecyclerAdapter(Context context,ArrayList<Pregnancy> pregnancyArrayList, int filteredArraySize, PregnancyDbHandler2 pregnancyDbHandler)
+
+    public PregnancyRecyclerAdapter(Context context,ArrayList<Pregnancy> pregnancyArrayList,  PregnancyDbHandler2 pregnancyDbHandler)
     {
         this.pregnancyDbHandler= pregnancyDbHandler;
         this.context=context;
         this.pregnancyArrayList=pregnancyArrayList;
-        this.filteredArraySize =filteredArraySize;
     }
 
     @NonNull
@@ -61,14 +57,17 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
         holder.pregnancyRecyclerCrossedDate.setText(aPregnancy.getCrossedDate().toString());
 
         //holder.pregnancyRecyclerId.setText(aPregnancy.getId());
-        holder.pregnancyRecyclerId.setText(String.valueOf(aPregnancy.getDoePregnancyCount()));
+        holder.pregnancyRecyclerId.setText(String.valueOf(position+1));
         holder.pregnancyRecyclerDoeTag.setText(aPregnancy.getDoeTag());
         holder.pregnancyConfirmationStatus.setText(aPregnancy.getPregnancyConfirmation());
-//        if (holder.pregnancyConfirmationStatus.getText().toString().equalsIgnoreCase("True")){
-//            holder.pregnancyConfirmationStatus.setTextColor(black);
-//    }
+
+        //SET COLOUR BASED ON CHOICE
+        if (holder.pregnancyConfirmationStatus.getText().toString().equalsIgnoreCase("True")){
+            holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#00FF00"));
+    }else if(holder.pregnancyConfirmationStatus.getText().toString().equalsIgnoreCase("False")){
+            holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#FF0000"));
+        }
         holder.pregnancyRecyclerNumberOfDays.setText( String.valueOf(aPregnancy.calculateNoOfDays()));
-        Log.d("Preg", String.valueOf(aPregnancy.getDoePregnancyCount()));
     }
 
 
@@ -111,6 +110,7 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
         }
 
 
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
@@ -121,23 +121,14 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
                     selectedPregnancy = pregnancyArrayList.get(adapterPosition);
                     PregnancyDeleteDialog pregnancyDeleteDialog =new PregnancyDeleteDialog(context);
                     pregnancyDeleteDialog.showDeleteDialog();
-                    pregnancyDeleteDialog.cancelDeleteButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            pregnancyDeleteDialog.deleteDialog.dismiss();
-                        }
-                    });
-                    pregnancyDeleteDialog.confirmDeleteButton.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v) {
+                    pregnancyDeleteDialog.cancelDeleteButton.setOnClickListener(v12 -> pregnancyDeleteDialog.deleteDialog.dismiss());
+                    pregnancyDeleteDialog.confirmDeleteButton.setOnClickListener(v1 -> {
 
-                            pregnancyDeleteDialog.deleteDialog.dismiss();
-                            deleteItem(selectedPregnancy.getId());
+                        pregnancyDeleteDialog.deleteDialog.dismiss();
+                        deleteItem(selectedPregnancy.getId());
 
 
-                            Toast.makeText(context,"Deleted", Toast.LENGTH_LONG ).show();
-                        }
+                        Toast.makeText(context,"Deleted", Toast.LENGTH_LONG ).show();
                     });
                     break;
                 case R.id.pregnancyRecyclerEditButton:

@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
+
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.PregnancyRecyclerAdapter;
-import com.example.myapplication.data.PregnancyDbHandler;
+
 import com.example.myapplication.data.PregnancyDbHandler2;
 import com.example.myapplication.models.Pregnancy;
 import com.example.myapplication.util.PregnancyFormDialog;
@@ -42,7 +42,7 @@ public class PregnancyListPage extends AppCompatActivity {
 
         pregnancyDbHandler = new PregnancyDbHandler2(this,null,null,1);
 
-        pregnancyRecyclerAdapter = new PregnancyRecyclerAdapter(this,filterPregnancyArrayList(doeTag),filteredPregnancyArrayList.size(), pregnancyDbHandler);
+        pregnancyRecyclerAdapter = new PregnancyRecyclerAdapter(this,filterPregnancyArrayList(doeTag), pregnancyDbHandler);
 
         pregnancyRecyclerView= findViewById(R.id.pregnancyRecyclerView);
         pregnancyRecyclerView.setHasFixedSize(true);
@@ -67,10 +67,7 @@ public class PregnancyListPage extends AppCompatActivity {
         return filteredPregnancyArrayList;
     }
 
-    //after filtering by doe
-    private int filterdCount(ArrayList<Pregnancy> filteredPregnancyArrayList){
-        return filteredPregnancyArrayList.size();
-    }
+
 
     public void showPregnancyFormDialog(View v){
 

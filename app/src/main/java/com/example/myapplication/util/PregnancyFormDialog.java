@@ -80,13 +80,14 @@ public class PregnancyFormDialog
         }
         buckRabbitList.add("Others");
 
-        String[] confirmationStatusOptions = {"True", "False", "Unconfirmed"};
+        String[] confirmationStatusOptions = {"Unconfirmed","True", "False"};
 
         //set the buckTag as an Adapter
         buckTagsAdapter = new ArrayAdapter(context,android.R.layout.simple_list_item_1,buckRabbitList);
         buckTag.setAdapter(buckTagsAdapter);
         pregnancyConfirmationAdapter=new ArrayAdapter(context,android.R.layout.simple_list_item_1,confirmationStatusOptions);
         pregnancyConfirmation.setAdapter(pregnancyConfirmationAdapter);
+
     }
 
     //the add Pregnancy action
