@@ -11,7 +11,7 @@ import android.view.View;
 import com.example.myapplication.R;
 import com.example.myapplication.adapters.PregnancyRecyclerAdapter;
 
-import com.example.myapplication.data.PregnancyDbHandler2;
+import com.example.myapplication.data.DbHandler;
 import com.example.myapplication.models.Pregnancy;
 import com.example.myapplication.util.PregnancyFormDialog;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class PregnancyListPage extends AppCompatActivity {
 
-    private PregnancyDbHandler2 pregnancyDbHandler;
+    private DbHandler dbHandler;
     private PregnancyRecyclerAdapter pregnancyRecyclerAdapter;
     private RecyclerView pregnancyRecyclerView;
     private PregnancyFormDialog pregnancyFormDialog;
@@ -40,9 +40,9 @@ public class PregnancyListPage extends AppCompatActivity {
 
 
 
-        pregnancyDbHandler = new PregnancyDbHandler2(this,null,null,1);
+        dbHandler = new DbHandler(this,null);
 
-        pregnancyRecyclerAdapter = new PregnancyRecyclerAdapter(this,filterPregnancyArrayList(doeTag), pregnancyDbHandler);
+        pregnancyRecyclerAdapter = new PregnancyRecyclerAdapter(this,filterPregnancyArrayList(doeTag), dbHandler);
 
         pregnancyRecyclerView= findViewById(R.id.pregnancyRecyclerView);
         pregnancyRecyclerView.setHasFixedSize(true);
@@ -52,12 +52,12 @@ public class PregnancyListPage extends AppCompatActivity {
         pregnancyRecyclerView.setAdapter(pregnancyRecyclerAdapter);
 
 
-        pregnancyFormDialog =new PregnancyFormDialog(pregnancyDbHandler,this,doeTag);
+        pregnancyFormDialog =new PregnancyFormDialog(dbHandler,this,doeTag);
 
 
     }
     private ArrayList<Pregnancy> filterPregnancyArrayList(String doeTag) {
-        pregnancyArrayList = pregnancyDbHandler.pregnancyArrayList();
+        pregnancyArrayList = dbHandler.pregnancyArrayList();
         filteredPregnancyArrayList = new ArrayList<>();
         for (Pregnancy pregnancy : pregnancyArrayList) {
             if (pregnancy.getDoeTag().equals(doeTag)) {

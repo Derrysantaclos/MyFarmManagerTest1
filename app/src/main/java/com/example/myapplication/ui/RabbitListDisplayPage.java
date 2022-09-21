@@ -10,10 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.DbHandler;
+import com.example.myapplication.models.Image;
 import com.example.myapplication.models.Rabbit;
 import com.example.myapplication.util.RabbitFormDialog;
 import com.example.myapplication.adapters.RabbitRecyclerAdapter;
@@ -27,13 +27,14 @@ public class RabbitListDisplayPage extends AppCompatActivity {
     private RabbitRecyclerAdapter rabbitRecyclerAdapter;
     private RecyclerView rabbitRecyclerView;
     private RabbitFormDialog rabbitFormDialog;
+    private ArrayList<Image> imageArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rabbit_list_display_page);
 
-        dbHandler = new DbHandler(this,null,null, 1);
+        dbHandler = new DbHandler(this, null);
         rabbitArrayList=dbHandler.rabbitArrayList();
 
         //setContentView(R.layout.content_rabbit_list_page);

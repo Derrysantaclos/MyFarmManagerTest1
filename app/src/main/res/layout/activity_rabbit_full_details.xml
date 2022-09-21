@@ -7,14 +7,43 @@
     tools:context=".ui.RabbitFullDetails"
     android:padding="20sp"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/rabbit_images"
+            android:layout_width="161dp"
+            android:layout_height="132dp"
+            android:layout_centerHorizontal="true"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:textAlignment="center"
+            android:contentDescription="@string/rabbit_image_description" />
 
-    <ImageView
-        android:id="@+id/rabbit_images"
-        android:layout_width="161dp"
-        android:layout_height="132dp"
-        android:layout_marginLeft="80dp"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:textAlignment="center" />
+        <Button
+            android:id="@+id/addImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rabbit_images"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="-11dp"
+            android:layout_marginTop="1dp"
+            android:text="@string/add_image" />
+
+        <Button
+            android:id="@+id/saveImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rabbit_images"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="-3dp"
+            android:layout_marginEnd="0dp"
+            android:text="Save Image" />
+
+    </RelativeLayout>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

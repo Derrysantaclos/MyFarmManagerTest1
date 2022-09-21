@@ -6,16 +6,12 @@ import android.os.Bundle;
 import com.example.myapplication.R;
 import com.example.myapplication.data.DbHandler;
 import com.example.myapplication.util.RabbitFormDialog;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 
@@ -36,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        dbHandler = new DbHandler(this,null,null,1);
+        dbHandler = new DbHandler(this, null);
 
         setSupportActionBar(binding.toolbar);
         rabbitFormDialog =new RabbitFormDialog(this,dbHandler);
@@ -57,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void byPassMainActivity() {
-        DbHandler dbHandler = new DbHandler(this,null,null,1);
+        DbHandler dbHandler = new DbHandler(this, null);
         int rabbitCount = dbHandler.rabbitCount();
         if (rabbitCount>0)
         {

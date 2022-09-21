@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 
 
-import com.example.myapplication.data.PregnancyDbHandler2;
+import com.example.myapplication.data.DbHandler;
 import com.example.myapplication.models.Pregnancy;
 import com.example.myapplication.util.PregnancyDeleteDialog;
 import com.example.myapplication.util.PregnancyFormDialog;
@@ -29,14 +29,14 @@ import java.util.ArrayList;
 public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecyclerAdapter.ViewHolder>
 {
 
-    private final PregnancyDbHandler2 pregnancyDbHandler;
+    private final DbHandler dbHandler;
     private final Context context;
     private final ArrayList<Pregnancy> pregnancyArrayList;
 
 
-    public PregnancyRecyclerAdapter(Context context,ArrayList<Pregnancy> pregnancyArrayList,  PregnancyDbHandler2 pregnancyDbHandler)
+    public PregnancyRecyclerAdapter(Context context,ArrayList<Pregnancy> pregnancyArrayList,  DbHandler dbHandler)
     {
-        this.pregnancyDbHandler= pregnancyDbHandler;
+        this.dbHandler= dbHandler;
         this.context=context;
         this.pregnancyArrayList=pregnancyArrayList;
     }
@@ -66,7 +66,7 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
             holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#00FF00"));
     }else if(holder.pregnancyConfirmationStatus.getText().toString().equalsIgnoreCase("False")){
             holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#FF0000"));
-        }else{holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#FFFFFF"));}
+        }else{holder.pregnancyConfirmationStatus.setTextColor(Color.parseColor("#FFD700"));}
         holder.pregnancyRecyclerNumberOfDays.setText( String.valueOf(aPregnancy.calculateNoOfDays()));
     }
 
@@ -132,7 +132,7 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
                     });
                     break;
                 case R.id.pregnancyRecyclerEditButton:
-                    PregnancyFormDialog pregnancyFormDialog = new PregnancyFormDialog(pregnancyDbHandler,context,selectedPregnancy.getDoeTag());
+                    PregnancyFormDialog pregnancyFormDialog = new PregnancyFormDialog(dbHandler,context,selectedPregnancy.getDoeTag());
                     pregnancyFormDialog.editPregnancy(selectedPregnancy,PregnancyRecyclerAdapter.this,adapterPosition);
                     break;
 
@@ -141,7 +141,7 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
 
         }
         private void deleteItem(int pregnancyId){
-            pregnancyDbHandler.deletePregnancy(pregnancyId);
+            dbHandler.deletePregnancy(pregnancyId);
 
             pregnancyArrayList.remove(getAdapterPosition());
             notifyItemRemoved(getAdapterPosition());

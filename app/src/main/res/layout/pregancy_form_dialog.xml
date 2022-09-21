@@ -18,51 +18,120 @@
             android:id="@+id/pregnancyDialogIntroductoryText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:padding="25dp"
+            android:textSize="17sp"
+            android:padding="20dp"
             android:textAlignment="center"
             android:textStyle="bold|italic"
             android:text="Add/Edit pregnancy details for your Doe"
             />
-        <Spinner
-            android:id="@+id/pregnancyDialogFormBuckTag"
+        <LinearLayout
+            android:id="@+id/pregnancyDialogFormBuckTagLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Buck Tag"
+            android:orientation="horizontal"
             android:layout_below="@id/pregnancyDialogIntroductoryText"
+            >
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
 
-            />
-        <EditText
-            android:id="@+id/pregnancyDialogFormCrossDate"
+
+                android:text="Buck Tag(Select Others if not farm Buck: "/>
+            <Spinner
+                android:id="@+id/pregnancyDialogFormBuckTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Buck Tag"
+                android:textSize="12sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pregnancyDialogFormCrossDateLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date of Mating (yyyy-mm-dd)"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:layout_below="@id/pregnancyDialogFormBuckTag"
-            />
-        <Spinner
-            android:id="@+id/pregnancyDialogFormConfirmation"
+            android:orientation="horizontal"
+            android:layout_below="@id/pregnancyDialogFormBuckTagLayout"
+            >
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Mate Date:    "/>
+            <EditText
+                android:id="@+id/pregnancyDialogFormCrossDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date of Mating"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:textAlignment="center"
-            android:hint="Date of Mating (yyyy-mm-dd)"
-            android:layout_below="@id/pregnancyDialogFormCrossDate"
-        />
-        <EditText
-            android:id="@+id/pregnancyDialogFormDeliveryDate"
+            android:orientation="horizontal"
+
+            android:id="@+id/pregnancyDialogFormConfirmationLayout"
+            android:layout_below="@id/pregnancyDialogFormCrossDateLayout">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Select confirmation staus.False if confirmed not pregnant"/>
+            <Spinner
+                android:id="@+id/pregnancyDialogFormConfirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:hint="Date of Mating (yyyy-mm-dd)"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pregnancyDialogFormDeliveryDateLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Delivery Date (yyyy-mm-dd)"
-            android:layout_below="@id/pregnancyDialogFormConfirmation"
-            />
+            android:orientation="horizontal"
+            android:layout_below="@id/pregnancyDialogFormConfirmationLayout">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="Delivery Date(Leave Box unchecked if Pending)"
+                />
+            <CheckBox
+                android:id="@+id/deliveryCheckBox"
+                android:layout_width="wrap_content"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/pregnancyDialogFormDeliveryDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="Delivery Date"
+                android:layout_below="@id/pregnancyDialogFormConfirmationLayout"
+                />
+        </LinearLayout>
+
+
         <Button
             android:id="@+id/savePregnancyButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SAVE PREGNANCY"
-            android:layout_below="@id/pregnancyDialogFormDeliveryDate"
+            android:textSize="14sp"
+            android:layout_below="@id/pregnancyDialogFormDeliveryDateLayout"
             />
 
     </RelativeLayout>

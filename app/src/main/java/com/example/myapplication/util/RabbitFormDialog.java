@@ -1,9 +1,11 @@
 package com.example.myapplication.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Adapter;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.loader.app.LoaderManager;
 
 import com.example.myapplication.R;
@@ -21,8 +24,12 @@ import com.example.myapplication.models.Rabbit;
 import com.example.myapplication.ui.RabbitListDisplayPage;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -109,7 +116,10 @@ private final Validator validator= new Validator();
         String newRabbitSex =rabbitSex.getText().toString();
         String newRabbitSource =rabbitSource.getText().toString();
         String newRabbitDOBString =rabbitDateofBirth.getText().toString();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        }
         if (!validator.inputDateValidator(rabbitDateofBirth))//input date Validator
         {
             Toast.makeText(context,"Invalid",Toast.LENGTH_LONG).show();
@@ -166,7 +176,11 @@ private final Validator validator= new Validator();
         rabbitSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateItem(v, rabbit);
+                try {
+                    updateItem(v, rabbit);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -178,7 +192,7 @@ private final Validator validator= new Validator();
 
 
     //FOR UPDATING ITEMS
-    private void updateItem(View view, Rabbit rabbit){
+    private void updateItem(View view, Rabbit rabbit) throws ParseException {
 
         //change to new rabbit so as to be able to combine
 
@@ -204,6 +218,8 @@ private final Validator validator= new Validator();
                 {
                     DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate formattedDateOfBirth = LocalDate.parse(rabbitDateofBirth.getText().toString(), myFormatter);
+                    //@SuppressLint("SimpleDateFormat") DateFormat myFormatter=new SimpleDateFormat("yyyy-MM-dd");
+                    //Date date = myFormatter.parse(rabbitDateofBirth.getText().toString());
                     rabbit.set_breed(rabbitBreed.getText().toString());
                     rabbit.set_source(rabbitSource.getText().toString());
                     rabbit.set_sex(rabbitSex.getText().toString());
