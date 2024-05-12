@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width ="match_parent"
-    android:layout_height ="match_parent"
-    android:orientation ="vertical">
-<item
-    android:id="@+id/menuSearch"
-    android:icon="@android:drawable/ic_menu_search"
-    android:title="Search"
-    android:background="#ffffff"
-    app:actionViewClass="androidx.appcompat.widget.SearchView"
-    app:showAsAction="ifRoom|collapseActionView"
-    />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <item
+        android:id="@+id/menuSearch"
+        android:background="#ffffff"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+    <item
+        android:id="@+id/menuBar"
+        android:background="#ffffff"
+        android:icon="@mipmap/menu"
+        android:title="Search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+
+        />
 </menu>

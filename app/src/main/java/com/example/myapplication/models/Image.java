@@ -1,6 +1,6 @@
 package com.example.myapplication.models;
 
-import android.content.ContentValues;
+
 import android.graphics.Bitmap;
 
 import java.io.ByteArrayOutputStream;
