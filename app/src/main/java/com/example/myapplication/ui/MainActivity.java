@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         dbHandler = new DbHandler(this, null);
 
-        setSupportActionBar(binding.toolbar);
         rabbitFormDialog =new RabbitFormDialog(this,dbHandler);
 
 

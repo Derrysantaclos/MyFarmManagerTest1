@@ -15,6 +15,8 @@
     <string name="breed">Breed</string>
     <string name="add_image">Add Image</string>
     <string name="rabbit_image_description">rabbit image</string>
+    <string name="logo">Logo</string>
+    <string name="welcome_text">MyFarmManager</string>
     <string-array name="gender_options">
         <item>Male </item>
         <item>Female </item>

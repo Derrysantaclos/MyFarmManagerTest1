@@ -1,5 +1,7 @@
 package com.example.myapplication.adapters;
 
+
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -115,18 +117,14 @@ public class RabbitRecyclerAdapter extends RecyclerView.Adapter<RabbitRecyclerAd
            Rabbit currentRabbit = rabbitArrayList.get(getAdapterPosition());
 
             RabbitFormDialog rabbitFormDialog = new RabbitFormDialog(context, dbHandler);
+            if (v.getId()== R.id.recyclerEditButton) {
+                // Pop up form and update
+                rabbitFormDialog.showCurrentRabbitDialog(currentRabbit);
+            } else if (v.getId() == R.id.recyclerDeleteButton) {
+                DeleteDialog deleteDialog = new DeleteDialog(context, dbHandler);
+                deleteDialog.showDeleteDialog(currentRabbit.get_id());
+            } else {
 
-            switch(v.getId()){
-                case R.id.recyclerEditButton:
-                    //pop up form and update
-                    rabbitFormDialog.showCurrentRabbitDialog(currentRabbit);
-
-                    break;
-                case R.id.recyclerDeleteButton:
-                    DeleteDialog deleteDialog =new DeleteDialog(context,dbHandler);
-                    deleteDialog.showDeleteDialog(currentRabbit.get_id());
-                    break;
-                default:
                     //rabbit details
                     //goes to the full detail of the rabbit
                     Intent rabbitDetailIntent = new Intent(context, RabbitFullDetails.class);
@@ -140,7 +138,7 @@ public class RabbitRecyclerAdapter extends RecyclerView.Adapter<RabbitRecyclerAd
                     rabbitDetailIntent.putExtra("currentRabbitSex", currentRabbit.get_sex());
 
                     context.startActivity(rabbitDetailIntent);
-                    break;
+
             }
 
         }

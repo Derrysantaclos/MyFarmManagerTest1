@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="user_input">
+        <item name="android:textSize">12sp</item>
+        <item name="borderWidth">1dp</item>
+
+        <item name="borderRound">5dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

@@ -116,25 +116,26 @@ public class PregnancyRecyclerAdapter extends RecyclerView.Adapter<PregnancyRecy
             int adapterPosition = getAdapterPosition();
            selectedPregnancy = pregnancyArrayList.get(adapterPosition);
 
-            switch (v.getId()){
-                case R.id.pregnanyRecyclerDeleteButton:
-                    selectedPregnancy = pregnancyArrayList.get(adapterPosition);
-                    PregnancyDeleteDialog pregnancyDeleteDialog =new PregnancyDeleteDialog(context);
-                    pregnancyDeleteDialog.showDeleteDialog();
-                    pregnancyDeleteDialog.cancelDeleteButton.setOnClickListener(v12 -> pregnancyDeleteDialog.deleteDialog.dismiss());
-                    pregnancyDeleteDialog.confirmDeleteButton.setOnClickListener(v1 -> {
+            if (v.getId()== R.id.pregnanyRecyclerDeleteButton) {
 
-                        pregnancyDeleteDialog.deleteDialog.dismiss();
-                        deleteItem(selectedPregnancy.getId());
+                selectedPregnancy = pregnancyArrayList.get(adapterPosition);
+                PregnancyDeleteDialog pregnancyDeleteDialog = new PregnancyDeleteDialog(context);
+                pregnancyDeleteDialog.showDeleteDialog();
+                pregnancyDeleteDialog.cancelDeleteButton.setOnClickListener(v12 -> pregnancyDeleteDialog.deleteDialog.dismiss());
+                pregnancyDeleteDialog.confirmDeleteButton.setOnClickListener(v1 -> {
+
+                    pregnancyDeleteDialog.deleteDialog.dismiss();
+                    deleteItem(selectedPregnancy.getId());
 
 
-                        Toast.makeText(context,"Deleted", Toast.LENGTH_LONG ).show();
-                    });
-                    break;
-                case R.id.pregnancyRecyclerEditButton:
+                    Toast.makeText(context, "Deleted", Toast.LENGTH_LONG).show();
+                });
+            }
+               else if(v.getId()== R.id.pregnancyRecyclerEditButton){
+
                     PregnancyFormDialog pregnancyFormDialog = new PregnancyFormDialog(dbHandler,context,selectedPregnancy.getDoeTag());
                     pregnancyFormDialog.editPregnancy(selectedPregnancy,PregnancyRecyclerAdapter.this,adapterPosition);
-                    break;
+
 
             }
 
