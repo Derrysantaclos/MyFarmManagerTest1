@@ -17,6 +17,12 @@
     <string name="rabbit_image_description">rabbit image</string>
     <string name="logo">Logo</string>
     <string name="welcome_text">MyFarmManager</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="farm_name">Farm Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone_number">Phone Number</string>
     <string-array name="gender_options">
         <item>Male </item>
         <item>Female </item>
