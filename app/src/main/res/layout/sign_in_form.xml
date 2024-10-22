@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:id="@+id/signInForm">
+    <EditText
+
+        android:id="@+id/signInEmail"
+        style="@style/user_input"
+        android:autofillHints="emailAddress"
+        android:hint="@string/email"
+
+        android:inputType="textEmailAddress" />
+    <EditText
+        android:id="@+id/signInPassword"
+        style="@style/user_input"
+        android:layout_below="@id/signInEmail"
+        android:autofillHints="emailAddress"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
+
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_green"
+    tools:context=".ui.AuthPage">
+    <RelativeLayout
+        android:id="@+id/auth_form_card"
+        style="@style/input_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/auth_form_card"
+        >
+        <LinearLayout
+            android:id="@+id/buttonContainer"
+            android:layout_width="180dp"
+            style="@style/auth_btn"
+            android:background="@drawable/button_background">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signUpButton"
+                style="@style/auth_btn.half_btn"
+                android:text="@string/sign_up"
+                android:textColor="@color/button_text_color"
+                android:background="@drawable/left_cornered_auth_button"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signInButton"
+                style="@style/auth_btn.half_btn"
+                android:background="@drawable/right_cornered_auth_button"
+                android:textColor="@color/button_text_color"
+                android:text="@string/sign_in"
+                />
+        </LinearLayout>
+<!--        include sign up form-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonContainer"
+            android:id="@+id/auth_form">
+            <include layout="@layout/sign_up_form"
+                android:id="@+id/sign_up_form"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"/>
+            <!--        include sign in form but make it invisible-->
+            <include layout="@layout/sign_in_form"
+                android:id="@+id/sign_in_form"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/auth_btn"
+            android:id="@+id/authButton"
+            android:layout_width="90dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/primary_color"
+            android:text="@string/sign_up"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/button_text_color"
+            android:layout_below="@+id/auth_form"/>
+    </RelativeLayout>
+
+</RelativeLayout>

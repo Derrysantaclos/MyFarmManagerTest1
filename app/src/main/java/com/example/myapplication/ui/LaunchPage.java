@@ -27,15 +27,12 @@ public class LaunchPage extends AppCompatActivity {
             return insets;
         });
         Button launchButton = findViewById(R.id.launchButton);
-        launchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent signUpIntent =new Intent(LaunchPage.this, SignUpPage.class);
-                startActivity(signUpIntent);
-                finish();//close current activity
+        launchButton.setOnClickListener(v -> {
+            Intent signUpIntent =new Intent(LaunchPage.this, AuthPage.class);
+            startActivity(signUpIntent);
+            finish();//close current activity
 
 
-            }
         });
     }
 }

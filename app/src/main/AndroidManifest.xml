@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.SignUpPage"
+            android:name=".ui.AuthPage"
             android:exported="false" />
         <activity
             android:name=".ui.MenuPage"
