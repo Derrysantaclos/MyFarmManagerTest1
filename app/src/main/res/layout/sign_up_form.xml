@@ -39,6 +39,16 @@
         android:autofillHints="emailAddress"
         android:hint="@string/password"
         android:inputType="textPassword" />
+    <TextView
+        android:id="@+id/passwordStrengthIndicator"
+        android:layout_below="@id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password Strength"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:visibility="gone"
+        android:textColor="@android:color/black" />
 </RelativeLayout>
 
 

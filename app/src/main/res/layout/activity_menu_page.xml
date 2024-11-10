@@ -1,11 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MenuPage">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.MenuPage"
+    android:padding="40dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/rabbitHutchSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <androidx.cardview.widget.CardView
+                style="@style/menu_farm_image_view"
+                app:cardCornerRadius="16dp"
+                android:layout_margin="8dp"
+                android:elevation="4dp">
+
+                <ImageView
+                    android:id="@+id/RabbitHutch"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/rabbit_image"
+                    android:contentDescription="@string/image_of_rabbits_hutch"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+               style="@style/menu_farm_text"
+                android:text="@string/my_hutch"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/goatRanchSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/goatRanch"
+                style="@style/menu_farm_image_view"
+                android:background="@drawable/goat_farm"
+                android:contentDescription="@string/image_of_goat_ranch"
+                />
+            <TextView
+               style="@style/menu_farm_text"
+                android:text="@string/my_goat_ranch"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

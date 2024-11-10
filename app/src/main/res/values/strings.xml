@@ -23,6 +23,11 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="phone_number">Phone Number</string>
+    <string name="reset_password_text">Can\'t remember password? Reset Password.</string>
+    <string name="my_hutch">My Hutch</string>
+    <string name="image_of_rabbits_hutch">Image of Rabbits to represent rabbit hutch</string>
+    <string name="my_goat_ranch">My Goat Ranch</string>
+    <string name="image_of_goat_ranch">image of goat ranch</string>
     <string-array name="gender_options">
         <item>Male </item>
         <item>Female </item>

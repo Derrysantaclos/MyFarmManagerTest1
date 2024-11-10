@@ -19,5 +19,17 @@
         android:autofillHints="emailAddress"
         android:hint="@string/password"
         android:inputType="textPassword" />
+    <TextView
+        android:id="@+id/passwordResetText"
+        android:layout_below="@id/signInPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textSize="10sp"
+        android:textColor="@color/reset_text"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/reset_password_text"
+        android:ellipsize="end" />
 
 </RelativeLayout>

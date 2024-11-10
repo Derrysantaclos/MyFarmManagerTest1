@@ -10,6 +10,6 @@
     <color name='background_green'>#FCFFF2</color>
     <color name="primary_color">#98CB00</color>
     <color name="light_green">#D8EC9C</color>
-
-
+     <color name="dull_red">#986868</color>
+    <color name="red">#FF0000</color>
 </resources>
